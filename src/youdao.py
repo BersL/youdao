@@ -47,16 +47,16 @@ def lookupwords(words):
 	querying = False
 	return soups
 		
-def processsoup(soup, specialty, web):
+def processsoup(keyword, soup, specialty, web):
 	global wordcnt
 	# 拼音/音标
 	try:
 		h2 = soup.find('h2', class_='wordbook-js')
-		keyword = soup.find('span', class_ = 'keyword').string
 		phonetic = h2.find('span', class_='phonetic')
 		conio.output('%d. %s ' % (wordcnt, keyword), color = conio.Color.Green, bold = True)
 	except:
-		conio.output('%d. %s ' % (wordcnt, keyword), color = conio.Color.Green, bold = True, newline = True)
+		conio.output('%d. %s ' % (wordcnt, keyword), color = conio.Color.Green, bold = True)
+		
 	try:
 		conio.output(phonetic.string, newline = True, bold = True)
 	except:
@@ -190,7 +190,7 @@ def _main(argv):
 	usage =	'Usage: %prog [options] <word>...\n'\
 			'Look up given words on youdao dictionary.\n'\
 			'Word selection mode will be entered after querying. '\
-			'Type return to exit and copy the selected explanation into clipboard.'
+			'Enter return to exit and copy the selected explanation into clipboard.'
 	parser = OptionParser(usage=usage, version="%prog 1.0")
 
 	parser.add_option('-s', '--specialty', action="store_true", dest="specialty", 
@@ -213,8 +213,8 @@ def _main(argv):
 	conio.output('\r            ')
 	conio.outputrt()
 	# 处理单词
-	for soup in soups:
-		processsoup(soup, options.specialty, options.web)
+	for i in range(0, len(soups)):
+		processsoup(args[i], soups[i], options.specialty, options.web)
 	
 	if not options.selection:
 		exp_selection()
