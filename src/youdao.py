@@ -4,7 +4,7 @@ import sys, os, signal, atexit
 import requests
 from optparse import OptionParser
 from bs4 import BeautifulSoup
-import conio
+from . import conio
 
 youdao = 'http://dict.youdao.com/w/eng/'
 wordcnt = 1
